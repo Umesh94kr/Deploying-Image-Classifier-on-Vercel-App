@@ -1,0 +1,22 @@
+<h2>Image Classifier</h2>
+
+<input type="file" id="file">
+<button onclick="upload()">Predict</button>
+
+<p id="result"></p>
+
+<script>
+async function upload() {
+  let file = document.getElementById("file").files[0];
+  let formData = new FormData();
+  formData.append("file", file);
+
+  let res = await fetch("http://127.0.0.1:8000/predict", {
+    method: "POST",
+    body: formData
+  });
+
+  let data = await res.json();
+  document.getElementById("result").innerText = "Prediction: " + data.prediction;
+}
+</script>
